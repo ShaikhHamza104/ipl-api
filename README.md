@@ -1,105 +1,134 @@
+
 <div align="center">
 
-# 🏏 IPL API
+# 🏏 IPL API – FastAPI Service for Cricket Data
 
-Serve Indian Premier League (IPL) data via a simple FastAPI service and explore it with a handy notebook.
+![IPL Logo](https://upload.wikimedia.org/wikipedia/en/4/41/Indian_Premier_League_Logo.png)
+
+📡 **Live API**: [ipl-api-y5az.onrender.com](https://ipl-api-y5az.onrender.com)  
+📄 **API Docs**: [ipl-api-y5az.onrender.com/docs](https://ipl-api-y5az.onrender.com/docs)  
+
+Serve **Indian Premier League** (IPL) match data through a simple and fast REST API, powered by **FastAPI** & **Pandas**.
 
 </div>
 
-## Overview
+---
 
-This repository contains:
+## 📋 Overview
 
-- A FastAPI service that exposes IPL match data from CSV files.
-- A Jupyter Notebook for data cleaning and quick exploration (`data-cleaning.ipynb`).
-- CSV datasets (matches, deliveries, merged/cleaned).
+This project provides:
+- 🚀 **FastAPI service** serving IPL match and delivery data from CSV files  
+- 📊 **Jupyter Notebook** for quick data cleaning and EDA (`data-cleaning.ipynb`)  
+- 📂 **Cleaned datasets** ready for dashboards or apps  
 
-Use it to build dashboards, perform EDA, or power a frontend app.
+Perfect for:
+- Building cricket dashboards 🖥️  
+- Running quick data analysis 📈  
+- Powering a cricket stats frontend ⚡  
 
-## Project Structure
+---
 
-- `data-cleaning.ipynb` – cleaning and quick queries over the dataset
-- `ipl_clean.csv` – cleaned IPL data (source for the API)
-- `matches.csv`, `deliveries.csv`, `merged_data.csv` – raw data
-- `README.md` – you are here
-- `requirements.txt` – Python dependencies
-- `LICENSE` – repository license
+## 📂 Project Structure
 
-## Quickstart
+| File / Folder      | Description |
+|--------------------|-------------|
+| `ipl_clean.csv`    | Cleaned IPL dataset used by the API |
+| `matches.csv`      | Match data |
+| `requirements.txt` | Python dependencies |
+| `main.py`          | FastAPI application |
+| `README.md`        | Project documentation |
+| `LICENSE`          | MIT License |
 
-1) Create and activate a virtual environment
+---
 
+## ⚡ Quickstart
+
+1️⃣ **Create a virtual environment**
 ```bash
 python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
 ```
 
-2) Install dependencies
-
+2️⃣ **Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-3) Run the API
-
+3️⃣ **Run the API**
 ```bash
 uvicorn main:app --reload --host 0.0.0.0 --port 8000
 ```
 
-4) Open the docs
-
+4️⃣ **Open API Docs**
 ```bash
-$BROWSER http://localhost:8000/docs
+http://localhost:8000/docs
 ```
 
-## API Endpoints
+---
 
-The following endpoints are commonly available in this project setup. Your local `main.py` may include a subset or additional routes.
+## 🌐 Live Deployment
 
-- `GET /` – service status
-- `GET /api/matches` – all matches summary (NaN-safe serialization)
-- `GET /api/matches/{limit}` – first N unique matches
-- `GET /api/matches/{match_id}` – deliveries/details for a specific match
-- `GET /api/season/{year}/{limit}` – matches for a season
-- `GET /api/matches/team/{team_name}/{limit}` – matches involving a team
-- `GET /api/matches/venue/{venue_name}/{limit}` – matches at a venue
+- **Base URL:** [https://ipl-api-y5az.onrender.com](https://ipl-api-y5az.onrender.com)  
+- **Docs:** [https://ipl-api-y5az.onrender.com/docs](https://ipl-api-y5az.onrender.com/docs)
 
-Example requests:
+---
+
+## 🔗 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/` | Service status |
+| `GET` | `/api/matches/id/{match_id}` | Match by ID |
+| `GET` | `/api/matches/{year}?limit=5` | Matches by season |
+| `GET` | `/api/allteams` | List of unique teams |
+| `GET` | `/api/matches/venue/{venue_name}` | Matches at a specific venue |
+
+---
+
+## 📌 Example Requests
 
 ```bash
-curl http://localhost:8000/
-curl http://localhost:8000/api/matches/10
-curl http://localhost:8000/api/season/2016/5
-curl "http://localhost:8000/api/matches/team/royal%20challengers%20bangalore/5"
+curl https://ipl-api-y5az.onrender.com/
+curl https://ipl-api-y5az.onrender.com/api/matches/id/1
+curl "https://ipl-api-y5az.onrender.com/api/matches/2016?limit=5"
+curl https://ipl-api-y5az.onrender.com/api/allteams
+curl "https://ipl-api-y5az.onrender.com/api/matches/venue/eden%20gardens"
 ```
 
-## Notes on Data
+---
 
-- The API expects `ipl_clean.csv` in the project root; ensure the file exists before starting the server.
-- To avoid JSON serialization errors, NaN values are converted to `null` (or safe defaults) before responses are returned.
-- Some endpoints normalize strings (e.g., team names) to lowercase for consistent filtering.
+## 🗒️ Notes on Data
 
-## Notebook
+- API expects `ipl_clean.csv` in the root directory  
+- All team and venue names are normalized to lowercase for filtering consistency  
 
-Open `data-cleaning.ipynb` to inspect, clean, or extend the dataset. You can add new features (e.g., team name standardization, imputation, or venue-level summaries) and export a refreshed `ipl_clean.csv` for the API to consume.
+---
 
-## Development
+## 🛠 Development
 
-- Python >= 3.10 recommended
-- FastAPI + Uvicorn runtime
-- Pandas/Numpy for data ops
-
-Suggested commands:
-
+- Python **3.10+** recommended  
+- Stack: **FastAPI**, **Uvicorn**, **Pandas**  
+- Install and run:
 ```bash
 pip install -r requirements.txt
 uvicorn main:app --reload
 ```
 
-## Contributing
+---
 
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines, including branching, commit style, and how to open a Pull Request.
+## 🤝 Contributing
 
-## License
+Contributions are welcome!  
+Please check [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.  
 
-This project is licensed under the terms of the [MIT License](LICENSE).
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** – see the [LICENSE](LICENSE) file for details.
+
+<div align="center">
+
+⚡ Built with ❤️ by Hamza Shaikh
+
+</div>
